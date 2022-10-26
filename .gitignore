@@ -1,0 +1,15 @@
+# Ignore all
+/*
+
+# Allow these files
+!README.md
+!requirements.txt
+!.gitignore
+!creatediagrams.py
+
+# Allow these folders
+!results/
+
+# Additionally disable these folders
+results/common
+__pycache__
