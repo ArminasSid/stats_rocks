@@ -111,7 +111,46 @@ def plot_epoch_precision():
 
     print('ok')
 
+def plot_b_epoch_obj_loss():
+    plt.clf()
+    output_file = './results/common/plot_b_epoch_objloss.png'
+    # Create output path if not exist, if exists do not raise error
+    os.makedirs(name=os.path.dirname(output_file), exist_ok=True)
+
+    input_file1 = 'results/b-train2345-valid1/results.csv'
+    input_file2 = 'results/b-train1345-valid2/results.csv'
+    input_file3 = 'results/b-train1245-valid3/results.csv'
+    input_file4 = 'results/b-train1235-valid4/results.csv'
+    input_file5 = 'results/b-train1234-valid5/results.csv'
+
+    header_x = 'epoch'
+    header_y = 'train/obj_loss'
+
+    plot_data1 = read_csv(file=input_file1, header_x=header_x, header_y=header_y)
+    plot_data2 = read_csv(file=input_file2, header_x=header_x, header_y=header_y)
+    plot_data3 = read_csv(file=input_file3, header_x=header_x, header_y=header_y)
+    plot_data4 = read_csv(file=input_file4, header_x=header_x, header_y=header_y)
+    plot_data5 = read_csv(file=input_file5, header_x=header_x, header_y=header_y)
+
+    print(f'Plotting...')
+    plt.plot(plot_data1.x, plot_data1.y, label='train2345-valid1')
+    plt.plot(plot_data2.x, plot_data2.y, label='train1345-valid2')
+    plt.plot(plot_data3.x, plot_data3.y, label='train1245-valid3')
+    plt.plot(plot_data4.x, plot_data4.y, label='train1235-valid4')
+    plt.plot(plot_data5.x, plot_data5.y, label='train1234-valid5')
+
+    plt.legend(title='k-fold group')
+    plt.title('Object loss during training')
+    plt.xlabel('Epoch')
+    plt.ylabel('Object loss')
+
+    print(f'Saving plot to: {output_file}')
+    plt.savefig(output_file)
+
+    print('ok')
+
 
 if __name__=='__main__':
     plot_epoch_precision()
     plot_epoch_recall_avg()
+    plot_b_epoch_obj_loss()
