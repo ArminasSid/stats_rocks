@@ -17,7 +17,7 @@ class PlotXY:
     """
     Plotting class, contains a list of x and y values (values should be the same lenght)
     """
-    x: list[int] = field(default_factory=list)
+    x: list[float] = field(default_factory=list)
     y: list[float] = field(default_factory=list)
 
 

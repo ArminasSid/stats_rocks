@@ -6,6 +6,7 @@
 !requirements.txt
 !.gitignore
 !creatediagrams.py
+!createbar.py
 
 # Allow these folders
 !results/
