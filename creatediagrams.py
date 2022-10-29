@@ -94,7 +94,7 @@ def plot_epoch_precision_avg():
     input_file5 = 'results/b3-train1234-valid5/results.csv'
 
     header_x = 'epoch'
-    header_y = 'metrics/recall'
+    header_y = 'metrics/precision'
 
     plot_data1 = read_csv(file=input_file1, header_x=header_x, header_y=header_y)
     plot_data2 = read_csv(file=input_file2, header_x=header_x, header_y=header_y)
