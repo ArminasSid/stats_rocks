@@ -2,7 +2,9 @@ import csv
 import statistics
 import os
 from dataclasses import dataclass, field
-from turtle import color, title
+
+import warnings
+warnings.filterwarnings("ignore") # Surpess no lagend warning
 
 import matplotlib
 matplotlib.use('Agg') # To avoid using embedded display, if display available can be removed 
@@ -76,8 +78,10 @@ def plot_epoch_recall_avg():
     plt.title('Recall curve')
     plt.xlabel('Epoch')
     plt.ylabel('Recall')
+    plt.legend(['Train-Valid', '_nolegend_', '_nolegend_', '_nolegend_', '_nolegend_', 'Averages'])
 
     print(f'Saving plot to: {output_file}')
+    plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
     plt.savefig(output_file)
 
 
@@ -122,8 +126,10 @@ def plot_epoch_precision_avg():
     plt.title('Precision curve')
     plt.xlabel('Epoch')
     plt.ylabel('Precision')
+    plt.legend(['Train-Valid', '_nolegend_', '_nolegend_', '_nolegend_', '_nolegend_', 'Averages'])
 
     print(f'Saving plot to: {output_file}')
+    plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
     plt.savefig(output_file)
 
 

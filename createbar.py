@@ -7,6 +7,9 @@ import matplotlib
 matplotlib.use('Agg') # To avoid using embedded display, if display available can be removed 
 from matplotlib import pyplot as plt
 
+# Change figure size
+plt.figure(figsize=(5, 6), dpi=80)
+
 # Global font size change on images
 plt.rcParams.update({'font.size': 14})
 
@@ -16,6 +19,8 @@ class TrainValid:
     valid: list[float] = field(default_factory=list)
 
     def __post_init__(self):
+        self.train.sort()
+        self.valid.sort()
         self.train = self._update_values(values_list=self.train)
         self.valid = self._update_values(values_list=self.valid)
 
@@ -60,10 +65,11 @@ def read_train_valid_instances(train_files: list[str], valid_files: list[str]):
     return TrainValid(train=train_elems, valid=valid_elems)
 
 
-def create_single_bar():
-    # Possible options are:
-    # [train1234-valid5, train1235-valid4, train1245-valid3, train1345-valid2, train2345-valid1]
-    instance = 'train2345-valid1'
+def create_single_bar(instance: str):
+    # Clear plot
+    plt.clf()
+    
+    print(f'Working with: {instance}')
 
     output_file = f'results/common/bar-{instance}.png'
     os.makedirs(name=os.path.dirname(output_file), exist_ok=True)
@@ -80,8 +86,8 @@ def create_single_bar():
     valid_keys, valid_occur = train_valid.get_valid_keys_amount()
 
     # Create bar
-    plt.bar(x=train_keys, height=train_occur, color='green', edgecolor='black')
-    plt.bar(x=valid_keys, height=valid_occur, color='red', edgecolor='black')
+    plt.bar(x=train_keys, height=train_occur, color='green', edgecolor='black', width=0.8, align='center')
+    plt.bar(x=valid_keys, height=valid_occur, color='red', edgecolor='black', width=0.8, align='center')
 
     # Set limit of y axis
     plt.ylim(top=13000)
@@ -93,6 +99,7 @@ def create_single_bar():
     plt.legend(['Training data', 'Validation data'], borderpad=0.1)
 
     # Save to file
+    plt.tight_layout(pad=0.4, w_pad=0.5, h_pad=1.0)
     plt.savefig(output_file)
 
     print('ok')
@@ -100,4 +107,6 @@ def create_single_bar():
 
 
 if __name__=='__main__':
-    create_single_bar()
+    instances = ['train1234-valid5', 'train1235-valid4', 'train1245-valid3', 'train1345-valid2', 'train2345-valid1']
+    for instance in instances:
+        create_single_bar(instance=instance)
